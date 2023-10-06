@@ -1,6 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
+#include <chrono>
+#include <thread>
+#include <unistd.h>
 
 using namespace sf;
 
@@ -18,6 +21,7 @@ struct Rectangle
         int endY
     ) : x(x), y(y), endX(endX), endY(endY) {}
 };
+
 
 struct DrawSprite {
     sf::Texture* texture;
@@ -43,17 +47,36 @@ struct DrawSprite {
 };
 
 
+void createWindow(RenderWindow &window, int WIDTH, int HEIGHT, String NAME_GAME) {
 
-// check load file correct
-bool loadImageFromFile(Image& Image, std::string path) {
-    if (!Image.loadFromFile(path)) return false;
-    return true;
+    window.create(sf::VideoMode(WIDTH, HEIGHT), NAME_GAME);
+    window.setFramerateLimit(60);
+
+}
+
+
+void fillField(bool &currentMove, int currentField[], int index, int &pressedX, int &pressedY){
+    if(currentMove){
+        currentField[index] = 1;
+        currentMove = !currentMove;
+
+        pressedX = 0;
+        pressedY = 0;
+    } else{
+        currentField[index] = -1;
+        currentMove = !currentMove;
+
+        pressedX = 0;
+        pressedY = 0;
+    }
 }
 
 
 // main
 int main()
 {
+    // init consts
+    const String NAME_GAME = "TicTacToe";
     const int WIDTH = 1920;
     const int HEIGHT = 1000;
     const std::string RES_PATH = "../../Resource/images/";
@@ -68,19 +91,36 @@ int main()
 
     const int IMAGE_SIZE = 180;
 
-    // create fullscreen window
+    const int FIELD_SIZE = 9;
+
+
+    // init default values
+    bool currentMove = 1;
+    bool isPlay = 0;
+
+    int pressedX;
+    int pressedY;
+
+    int currentField[9];
+    for(int i = 0; i < FIELD_SIZE; i++) currentField[i] = 0;
+
+    int checkWin = 0;
+
+
+    // create window
     RenderWindow window;
-    window.create(VideoMode(WIDTH, HEIGHT), "TicTacToe");
-    window.setFramerateLimit(60);
+    createWindow(window, WIDTH, HEIGHT, NAME_GAME);
 
-    // image resourse
+
+    // image resourses
     DrawSprite background = DrawSprite( RES_PATH + "Background.jpg", Rectangle(0, 0, WIDTH, HEIGHT));
-
     DrawSprite playButton = DrawSprite( RES_PATH + "PLAY.png", Rectangle(1333, 267, 1726, 357));
     DrawSprite resetButton = DrawSprite( RES_PATH + "RESET.png", Rectangle(1333, 267, 1726, 357));
-
     DrawSprite BigCatCurrent = DrawSprite( RES_PATH + "BigCat.png", Rectangle(1374, 596, 1694, 900));
     DrawSprite BigLoveCurrent = DrawSprite( RES_PATH + "BigLove.png", Rectangle(1374, 596, 1694, 900));
+    DrawSprite catsWins = DrawSprite( RES_PATH + "cats_win.png", Rectangle(486, 260, 1486, 760));
+    DrawSprite loveWins = DrawSprite( RES_PATH + "love_win.png", Rectangle(486, 260, 1486, 760));
+
 
     // 9 sprites of cat load
     DrawSprite pos0Cat = DrawSprite(RES_PATH + "cat.png", Rectangle
@@ -187,16 +227,7 @@ int main()
         Y_EL_POSITION + BUTTON_WIDHT * 2 + IMAGE_SIZE - CORRECT_Y));
 
 
-    bool currentMove = 1;
-    bool isPlay = 0;
-
-    int pressedX;
-    int pressedY;
-
-    int currentField[9];
-    for(int i = 0; i < 9; i++) currentField[i] = 0;
-
-    // window out cicle
+    // window loop
     while (window.isOpen())
     {
         Event event;
@@ -213,7 +244,6 @@ int main()
 
                     if((pressedX > 1229) && (pressedX < 1829) && (pressedY > 222) && (pressedY < 422)) isPlay = !isPlay;
 
-
                 }
             }
         }
@@ -222,199 +252,119 @@ int main()
         window.clear();
         window.draw(*background.sprite);
 
-        if(isPlay){
+
+        if(isPlay && (checkWin == 0)){
+
             window.draw(*resetButton.sprite);
-            if(currentMove){
-                window.draw(*BigCatCurrent.sprite);
-            } else {
+
+            if(currentMove)
+                window.draw(*BigCatCurrent.sprite); 
+            else
                 window.draw(*BigLoveCurrent.sprite);
-            }
+
+
+            int index = 0;
 
             if((pressedX > X_BASE_BUTTON)
             && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT)
             && (pressedY > Y_BASE_BUTTON)
             && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT)
-            && currentField[0] == 0){
-                if(currentMove){
-                    currentField[0] = 1;
-                    currentMove = !currentMove;
-
-                    pressedX = 0;
-                    pressedY = 0;
-                } else{
-                    currentField[0] = -1;
-                    currentMove = !currentMove;
-
-                    pressedX = 0;
-                    pressedY = 0;
-                }
-            }
+            && currentField[index] == 0)
+                fillField(currentMove, currentField, index, pressedX, pressedY);
+            
+            index++;
 
             if((pressedX > X_BASE_BUTTON + BUTTON_WIDHT)
             && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT * 2)
             && (pressedY > Y_BASE_BUTTON)
             && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT)
-            && currentField[1] == 0){
-                if(currentMove){
-                    currentField[1] = 1;
-                    currentMove = !currentMove;
+            && currentField[index] == 0)
+                fillField(currentMove, currentField, index, pressedX, pressedY);
 
-                    pressedX = 0;
-                    pressedY = 0;
-                } else{
-                    currentField[1] = -1;
-                    currentMove = !currentMove;
-
-                    pressedX = 0;
-                    pressedY = 0;
-                }
-            }
+            index++;
 
             if((pressedX > X_BASE_BUTTON + BUTTON_WIDHT * 2)
             && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT * 3)
             && (pressedY > Y_BASE_BUTTON)
             && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT)
-            && currentField[2] == 0){
-                if(currentMove){
-                    currentField[2] = 1;
-                    currentMove = !currentMove;
+            && currentField[index] == 0)
+                fillField(currentMove, currentField, index, pressedX, pressedY);
 
-                    pressedX = 0;
-                    pressedY = 0;
-                } else{
-                    currentField[2] = -1;
-                    currentMove = !currentMove;
-
-                    pressedX = 0;
-                    pressedY = 0;
-                }
-            }
+            index++;
 
             if((pressedX > X_BASE_BUTTON)
             && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT)
             && (pressedY > Y_BASE_BUTTON + BUTTON_WIDHT)
             && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT * 2)
-            && currentField[3] == 0){
-                if(currentMove){
-                    currentField[3] = 1;
-                    currentMove = !currentMove;
+            && currentField[index] == 0)
+                fillField(currentMove, currentField, index, pressedX, pressedY);
 
-                    pressedX = 0;
-                    pressedY = 0;
-                } else{
-                    currentField[3] = -1;
-                    currentMove = !currentMove;
-
-                    pressedX = 0;
-                    pressedY = 0;
-                }
-            }
+            index++;
 
             if((pressedX > X_BASE_BUTTON + BUTTON_WIDHT)
             && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT * 2)
             && (pressedY > Y_BASE_BUTTON + BUTTON_WIDHT)
             && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT * 2)
-            && currentField[4] == 0){
-                if(currentMove){
-                    currentField[4] = 1;
-                    currentMove = !currentMove;
+            && currentField[index] == 0)
+                fillField(currentMove, currentField, index, pressedX, pressedY);
 
-                    pressedX = 0;
-                    pressedY = 0;
-                } else{
-                    currentField[4] = -1;
-                    currentMove = !currentMove;
-
-                    pressedX = 0;
-                    pressedY = 0;
-                }
-            }
+            index++;
 
             if((pressedX > X_BASE_BUTTON + BUTTON_WIDHT * 2)
             && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT * 3)
             && (pressedY > Y_BASE_BUTTON + BUTTON_WIDHT)
             && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT * 2)
-            && currentField[5] == 0){
-                if(currentMove){
-                    currentField[5] = 1;
-                    currentMove = !currentMove;
+            && currentField[index] == 0)
+                fillField(currentMove, currentField, index, pressedX, pressedY);
 
-                    pressedX = 0;
-                    pressedY = 0;
-                } else{
-                    currentField[5] = -1;
-                    currentMove = !currentMove;
-
-                    pressedX = 0;
-                    pressedY = 0;
-                }
-            }
+            index++;
 
             if((pressedX > X_BASE_BUTTON)
             && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT)
             && (pressedY > Y_BASE_BUTTON + BUTTON_WIDHT * 2)
             && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT * 3)
-            && currentField[6] == 0){
-                if(currentMove){
-                    currentField[6] = 1;
-                    currentMove = !currentMove;
+            && currentField[index] == 0)
+                fillField(currentMove, currentField, index, pressedX, pressedY);
 
-                    pressedX = 0;
-                    pressedY = 0;
-                } else{
-                    currentField[6] = -1;
-                    currentMove = !currentMove;
-
-                    pressedX = 0;
-                    pressedY = 0;
-                }
-            }
+            index++;
 
             if((pressedX > X_BASE_BUTTON + BUTTON_WIDHT)
             && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT * 2)
             && (pressedY > Y_BASE_BUTTON + BUTTON_WIDHT * 2)
             && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT * 3)
-            && currentField[7] == 0){
-                if(currentMove){
-                    currentField[7] = 1;
-                    currentMove = !currentMove;
+            && currentField[index] == 0)
+                fillField(currentMove, currentField, index, pressedX, pressedY);
 
-                    pressedX = 0;
-                    pressedY = 0;
-                } else{
-                    currentField[7] = -1;
-                    currentMove = !currentMove;
-
-                    pressedX = 0;
-                    pressedY = 0;
-                }
-            }
+            index++;
 
             if((pressedX > X_BASE_BUTTON + BUTTON_WIDHT * 2)
             && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT * 3)
             && (pressedY > Y_BASE_BUTTON + BUTTON_WIDHT * 2)
             && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT * 3)
-            && currentField[8] == 0){
-                if(currentMove){
-                    currentField[8] = 1;
-                    currentMove = !currentMove;
+            && currentField[index] == 0)
+                fillField(currentMove, currentField, index, pressedX, pressedY);
 
-                    pressedX = 0;
-                    pressedY = 0;
-                } else{
-                    currentField[8] = -1;
-                    currentMove = !currentMove;
-
-                    pressedX = 0;
-                    pressedY = 0;
-                }
-            }
+            index++;
 
             
         } else{
+
             window.draw(*playButton.sprite);
 
-            for(int i = 0; i < 9; i++) currentField[i] = 0;
+            for(int i = 0; i < FIELD_SIZE; i++) currentField[i] = 0;
+        }
+
+        if(checkWin){
+            
+            if(checkWin == 1){
+                window.draw(*catsWins.sprite);
+            }
+
+            if(checkWin == -1){
+                window.draw(*loveWins.sprite);
+            }
+
+            if((pressedX > 0) && (pressedX < 1920) && (pressedY > 0) && (pressedY < 1000)) checkWin = 0;
         }
 
         if(currentField[0] == 1){
@@ -480,6 +430,7 @@ int main()
             window.draw(*pos8Love.sprite);
         }
 
+
         for(int i = 0; i < 3; i++){
             int counter = 0;
 
@@ -489,13 +440,21 @@ int main()
             }
 
             if(counter == 3){
-                for(int k = 0; k < 9; k++) currentField[k] = 0;
+                checkWin = 1;
+            
+                for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
                 isPlay = !isPlay;
+                break;
+
             } else if(counter == -3){
-                for(int k = 0; k < 9; k++) currentField[k] = 0;
+                checkWin = -1;
+                
+                for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
                 isPlay = !isPlay;
+                break;
             }
         }
+
 
         for(int i = 0; i < 3; i++){
             int counter = 0;
@@ -506,32 +465,50 @@ int main()
             }
 
             if(counter == 3){
-                for(int k = 0; k < 9; k++) currentField[k] = 0;
+                checkWin = 1;
+            
+                for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
                 isPlay = !isPlay;
+                break;
+
             } else if(counter == -3){
-                for(int k = 0; k < 9; k++) currentField[k] = 0;
+                checkWin = -1;
+            
+                for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
                 isPlay = !isPlay;
+                break;
             }
         }
 
         if((currentField[0] + currentField[4] + currentField[8]) == 3){
 
-            for(int k = 0; k < 9; k++) currentField[k] = 0;
+            checkWin = 1;
+            
+            for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
             isPlay = !isPlay;
+
         } else if((currentField[0] + currentField[4] + currentField[8]) == -3){
 
-            for(int k = 0; k < 9; k++) currentField[k] = 0;
+            checkWin = -1;
+            
+            for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
             isPlay = !isPlay;
         }
 
         if((currentField[2] + currentField[4] + currentField[6]) == 3){
 
-            for(int k = 0; k < 9; k++) currentField[k] = 0;
+            checkWin = 1;
+            
+            for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
             isPlay = !isPlay;
+
         } else if((currentField[2] + currentField[4] + currentField[6]) == -3){
 
-            for(int k = 0; k < 9; k++) currentField[k] = 0;
+            checkWin = -1;
+            
+            for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
             isPlay = !isPlay;
+
         }
         
         window.display();
