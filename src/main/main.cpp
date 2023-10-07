@@ -79,6 +79,57 @@ int* getNullableField(int FIELD_SIZE) {
     return currentField;
 }
 
+void nullifyField(int* currentField, int FIELD_SIZE){
+    for(int i = 0; i < FIELD_SIZE; i++) currentField[i] = 0;
+}
+
+
+int countVerticalLines(int* currentField, int row) {
+    int counter = 0;
+
+    for (int j = 0; j < 3; j++) {
+        counter += currentField[j * 3 + row];
+    }
+
+    return counter;
+}
+
+int countHorizontalLines(int* currentField, int row) {
+    int counter = 0;
+
+    for (int j = 0; j < 3; j++) {
+        counter += currentField[row * 3 + j];
+    }
+
+    return counter;
+}
+
+int countFirstHorizontal(int* currentField){
+    return (currentField[0] + currentField[4] + currentField[8]);
+}
+
+int countSecondHorizontal(int* currentField){
+    return (currentField[2] + currentField[4] + currentField[6]);
+}
+
+int foundWinner(int counter, int* currentField, int FIELD_SIZE, bool &isPlay){
+         
+    nullifyField(currentField, FIELD_SIZE);
+    isPlay = !isPlay;
+
+    if(counter == 3) 
+        return 1;
+    if(counter == -3)
+        return -1;
+}
+
+
+bool checkClick(int pressedX, int pressedY, int xStart, int xEnd, int yStart, int yEnd){
+    if((pressedX > xStart) && (pressedX < xEnd) && (pressedY > yStart) && (pressedY < yEnd))
+        return 1;
+    else
+        return 0;
+}
 
 // main
 int main()
@@ -112,8 +163,6 @@ int main()
     int* currentField = getNullableField(FIELD_SIZE);
 
     int checkWin = 0;
-
-    String cat0 = "*pos0Cat.sprite";
 
 
     // create window
@@ -251,7 +300,8 @@ int main()
                     pressedX = event.mouseButton.x;
                     pressedY = event.mouseButton.y;
 
-                    if((pressedX > 1229) && (pressedX < 1829) && (pressedY > 222) && (pressedY < 422)) isPlay = !isPlay;
+                    if(checkClick(pressedX, pressedY, 1229, 1829, 222, 422)) isPlay = !isPlay;
+                    // if((pressedX > 1229) && (pressedX < 1829) && (pressedY > 222) && (pressedY < 422)) isPlay = !isPlay;
 
                 }
             }
@@ -261,7 +311,7 @@ int main()
         window.clear();
         window.draw(*background.sprite);
 
-
+        // field click listener
         if(isPlay && (checkWin == 0)){
 
             window.draw(*resetButton.sprite);
@@ -360,9 +410,11 @@ int main()
 
             window.draw(*playButton.sprite);
 
-            for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
+            nullifyField(currentField, FIELD_SIZE);
         }
 
+
+        // print winner menu
         if(checkWin){
             
             if(checkWin == 1){
@@ -376,149 +428,115 @@ int main()
             if((pressedX > 0) && (pressedX < 1920) && (pressedY > 0) && (pressedY < 1000)) checkWin = 0;
         }
 
-        if(currentField[0] == 1){
-            window.draw(cat0);
+        // draw sprites
+        int index = 0;
+
+        if(currentField[index] == 1){
+            window.draw(*pos0Cat.sprite);
         }
-        if(currentField[0] == -1){
+        if(currentField[index] == -1){
             window.draw(*pos0Love.sprite);
         }
+        index++;
 
-        if(currentField[1] == 1){
+        if(currentField[index] == 1){
             window.draw(*pos1Cat.sprite);
         }
-        if(currentField[1] == -1){
+        if(currentField[index] == -1){
             window.draw(*pos1Love.sprite);
         }
+        index++;
 
-        if(currentField[2] == 1){
+        if(currentField[index] == 1){
             window.draw(*pos2Cat.sprite);
         }
-        if(currentField[2] == -1){
+        if(currentField[index] == -1){
             window.draw(*pos2Love.sprite);
         }
+        index++;
 
-        if(currentField[3] == 1){
+        if(currentField[index] == 1){
             window.draw(*pos3Cat.sprite);
         }
-        if(currentField[3] == -1){
+        if(currentField[index] == -1){
             window.draw(*pos3Love.sprite);
         }
+        index++;
 
-        if(currentField[4] == 1){
+        if(currentField[index] == 1){
             window.draw(*pos4Cat.sprite);
         }
-        if(currentField[4] == -1){
+        if(currentField[index] == -1){
             window.draw(*pos4Love.sprite);
         }
+        index++;
 
-        if(currentField[5] == 1){
+        if(currentField[index] == 1){
             window.draw(*pos5Cat.sprite);
         }
-        if(currentField[5] == -1){
+        if(currentField[index] == -1){
             window.draw(*pos5Love.sprite);
         }
+        index++;
 
-        if(currentField[6] == 1){
+        if(currentField[index] == 1){
             window.draw(*pos6Cat.sprite);
         }
-        if(currentField[6] == -1){
+        if(currentField[index] == -1){
             window.draw(*pos6Love.sprite);
         }
+        index++;
 
-        if(currentField[7] == 1){
+        if(currentField[index] == 1){
             window.draw(*pos7Cat.sprite);
         }
-        if(currentField[7] == -1){
+        if(currentField[index] == -1){
             window.draw(*pos7Love.sprite);
         }
+        index++;
         
-        if(currentField[8] == 1){
+        if(currentField[index] == 1){
             window.draw(*pos8Cat.sprite);
         }
-        if(currentField[8] == -1){
+        if(currentField[index] == -1){
             window.draw(*pos8Love.sprite);
         }
 
 
+        // check winner
         for(int i = 0; i < 3; i++){
-            int counter = 0;
-
-            for(int j = 0; j < 3; j++){
-                
-                counter += currentField[i * 3 + j];
-            }
-
-            if(counter == 3){
-                checkWin = 1;
             
-                for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
-                isPlay = !isPlay;
-                break;
+            int counter = countVerticalLines(currentField, i);
 
-            } else if(counter == -3){
-                checkWin = -1;
-                
-                for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
-                isPlay = !isPlay;
+            if((counter == 3) || (counter == -3)){
+                checkWin = foundWinner(counter, currentField, FIELD_SIZE, isPlay);
                 break;
             }
         }
 
 
         for(int i = 0; i < 3; i++){
-            int counter = 0;
-
-            for(int j = 0; j < 3; j++){
-                
-                counter += currentField[j * 3 + i];
-            }
-
-            if(counter == 3){
-                checkWin = 1;
             
-                for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
-                isPlay = !isPlay;
-                break;
+            int counter = countHorizontalLines(currentField, i);
 
-            } else if(counter == -3){
-                checkWin = -1;
-            
-                for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
-                isPlay = !isPlay;
+            if((counter == 3) || (counter == -3)){
+                checkWin = foundWinner(counter, currentField, FIELD_SIZE, isPlay);
                 break;
             }
         }
 
-        if((currentField[0] + currentField[4] + currentField[8]) == 3){
 
-            checkWin = 1;
-            
-            for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
-            isPlay = !isPlay;
+        int countFirstHorizont = countFirstHorizontal(currentField);
+        int countSecondHorizont = countSecondHorizontal(currentField);
 
-        } else if((currentField[0] + currentField[4] + currentField[8]) == -3){
 
-            checkWin = -1;
-            
-            for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
-            isPlay = !isPlay;
-        }
+        if((countFirstHorizont == 3) || (countFirstHorizont == -3))
+            checkWin = foundWinner(countFirstHorizont, currentField, FIELD_SIZE, isPlay);
 
-        if((currentField[2] + currentField[4] + currentField[6]) == 3){
 
-            checkWin = 1;
-            
-            for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
-            isPlay = !isPlay;
+        if((countSecondHorizont == 3) || (countSecondHorizont == -3))
+            checkWin = foundWinner(countSecondHorizont, currentField, FIELD_SIZE, isPlay);
 
-        } else if((currentField[2] + currentField[4] + currentField[6]) == -3){
-
-            checkWin = -1;
-            
-            for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
-            isPlay = !isPlay;
-
-        }
         
         window.display();
     }
