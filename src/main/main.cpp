@@ -71,6 +71,14 @@ void fillField(bool &currentMove, int currentField[], int index, int &pressedX, 
     }
 }
 
+int* getNullableField(int FIELD_SIZE) {
+    int* currentField = new int[FIELD_SIZE];
+    for (int i = 0; i < FIELD_SIZE; i++) {
+        currentField[i] = 0;
+    }
+    return currentField;
+}
+
 
 // main
 int main()
@@ -101,10 +109,11 @@ int main()
     int pressedX;
     int pressedY;
 
-    int currentField[9];
-    for(int i = 0; i < FIELD_SIZE; i++) currentField[i] = 0;
+    int* currentField = getNullableField(FIELD_SIZE);
 
     int checkWin = 0;
+
+    String cat0 = "*pos0Cat.sprite";
 
 
     // create window
@@ -351,7 +360,7 @@ int main()
 
             window.draw(*playButton.sprite);
 
-            for(int i = 0; i < FIELD_SIZE; i++) currentField[i] = 0;
+            for(int k = 0; k < FIELD_SIZE; k++) currentField[k] = 0;
         }
 
         if(checkWin){
@@ -368,7 +377,7 @@ int main()
         }
 
         if(currentField[0] == 1){
-            window.draw(*pos0Cat.sprite);
+            window.draw(cat0);
         }
         if(currentField[0] == -1){
             window.draw(*pos0Love.sprite);
@@ -513,4 +522,6 @@ int main()
         
         window.display();
     }
+
+    delete[] currentField;
 }
