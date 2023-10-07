@@ -37,13 +37,6 @@ struct DrawSprite {
         sprite->setPosition(sf::Vector2f(rect.x, rect.y));
         sprite->setSize(sf::Vector2f(rect.endX- rect.x, rect.endY- rect.y));
     }
-
-    // struct destruct
-    // ~DrawSprite()
-    // {
-    //     delete texture;
-    //     delete sprite;
-    // }
 };
 
 
