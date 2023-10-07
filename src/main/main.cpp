@@ -301,7 +301,6 @@ int main()
                     pressedY = event.mouseButton.y;
 
                     if(checkClick(pressedX, pressedY, 1229, 1829, 222, 422)) isPlay = !isPlay;
-                    // if((pressedX > 1229) && (pressedX < 1829) && (pressedY > 222) && (pressedY < 422)) isPlay = !isPlay;
 
                 }
             }
@@ -324,82 +323,117 @@ int main()
 
             int index = 0;
 
-            if((pressedX > X_BASE_BUTTON)
-            && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT)
-            && (pressedY > Y_BASE_BUTTON)
-            && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT)
-            && currentField[index] == 0)
-                fillField(currentMove, currentField, index, pressedX, pressedY);
-            
-            index++;
-
-            if((pressedX > X_BASE_BUTTON + BUTTON_WIDHT)
-            && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT * 2)
-            && (pressedY > Y_BASE_BUTTON)
-            && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT)
+            if(checkClick(
+            pressedX, 
+            pressedY, 
+            X_BASE_BUTTON, 
+            X_BASE_BUTTON + BUTTON_WIDHT, 
+            Y_BASE_BUTTON, 
+            Y_BASE_BUTTON + BUTTON_WIDHT) 
             && currentField[index] == 0)
                 fillField(currentMove, currentField, index, pressedX, pressedY);
 
             index++;
 
-            if((pressedX > X_BASE_BUTTON + BUTTON_WIDHT * 2)
-            && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT * 3)
-            && (pressedY > Y_BASE_BUTTON)
-            && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT)
+
+            if(checkClick(
+            pressedX, 
+            pressedY, 
+            X_BASE_BUTTON + BUTTON_WIDHT, 
+            X_BASE_BUTTON + BUTTON_WIDHT * 2, 
+            Y_BASE_BUTTON, 
+            Y_BASE_BUTTON + BUTTON_WIDHT) 
             && currentField[index] == 0)
                 fillField(currentMove, currentField, index, pressedX, pressedY);
 
             index++;
 
-            if((pressedX > X_BASE_BUTTON)
-            && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT)
-            && (pressedY > Y_BASE_BUTTON + BUTTON_WIDHT)
-            && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT * 2)
+
+            if(checkClick(
+            pressedX, 
+            pressedY, 
+            X_BASE_BUTTON + BUTTON_WIDHT * 2, 
+            X_BASE_BUTTON + BUTTON_WIDHT * 3, 
+            Y_BASE_BUTTON, 
+            Y_BASE_BUTTON + BUTTON_WIDHT) 
             && currentField[index] == 0)
                 fillField(currentMove, currentField, index, pressedX, pressedY);
 
             index++;
 
-            if((pressedX > X_BASE_BUTTON + BUTTON_WIDHT)
-            && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT * 2)
-            && (pressedY > Y_BASE_BUTTON + BUTTON_WIDHT)
-            && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT * 2)
+
+            if(checkClick(
+            pressedX, 
+            pressedY, 
+            X_BASE_BUTTON, 
+            X_BASE_BUTTON + BUTTON_WIDHT, 
+            Y_BASE_BUTTON + BUTTON_WIDHT, 
+            Y_BASE_BUTTON + BUTTON_WIDHT * 2) 
             && currentField[index] == 0)
                 fillField(currentMove, currentField, index, pressedX, pressedY);
 
             index++;
 
-            if((pressedX > X_BASE_BUTTON + BUTTON_WIDHT * 2)
-            && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT * 3)
-            && (pressedY > Y_BASE_BUTTON + BUTTON_WIDHT)
-            && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT * 2)
+
+            if(checkClick(
+            pressedX, 
+            pressedY, 
+            X_BASE_BUTTON + BUTTON_WIDHT, 
+            X_BASE_BUTTON + BUTTON_WIDHT * 2, 
+            Y_BASE_BUTTON + BUTTON_WIDHT, 
+            Y_BASE_BUTTON + BUTTON_WIDHT * 2) 
             && currentField[index] == 0)
                 fillField(currentMove, currentField, index, pressedX, pressedY);
 
             index++;
 
-            if((pressedX > X_BASE_BUTTON)
-            && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT)
-            && (pressedY > Y_BASE_BUTTON + BUTTON_WIDHT * 2)
-            && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT * 3)
+
+            if(checkClick(
+            pressedX, 
+            pressedY, 
+            X_BASE_BUTTON + BUTTON_WIDHT * 2, 
+            X_BASE_BUTTON + BUTTON_WIDHT * 3, 
+            Y_BASE_BUTTON + BUTTON_WIDHT, 
+            Y_BASE_BUTTON + BUTTON_WIDHT * 2) 
             && currentField[index] == 0)
                 fillField(currentMove, currentField, index, pressedX, pressedY);
 
             index++;
 
-            if((pressedX > X_BASE_BUTTON + BUTTON_WIDHT)
-            && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT * 2)
-            && (pressedY > Y_BASE_BUTTON + BUTTON_WIDHT * 2)
-            && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT * 3)
+
+            if(checkClick(
+            pressedX, 
+            pressedY, 
+            X_BASE_BUTTON, 
+            X_BASE_BUTTON + BUTTON_WIDHT, 
+            Y_BASE_BUTTON + BUTTON_WIDHT * 2, 
+            Y_BASE_BUTTON + BUTTON_WIDHT * 3) 
             && currentField[index] == 0)
                 fillField(currentMove, currentField, index, pressedX, pressedY);
 
             index++;
 
-            if((pressedX > X_BASE_BUTTON + BUTTON_WIDHT * 2)
-            && (pressedX < X_BASE_BUTTON + BUTTON_WIDHT * 3)
-            && (pressedY > Y_BASE_BUTTON + BUTTON_WIDHT * 2)
-            && (pressedY < Y_BASE_BUTTON + BUTTON_WIDHT * 3)
+
+            if(checkClick(
+            pressedX, 
+            pressedY, 
+            X_BASE_BUTTON + BUTTON_WIDHT, 
+            X_BASE_BUTTON + BUTTON_WIDHT * 2, 
+            Y_BASE_BUTTON + BUTTON_WIDHT * 2, 
+            Y_BASE_BUTTON + BUTTON_WIDHT * 3) 
+            && currentField[index] == 0)
+                fillField(currentMove, currentField, index, pressedX, pressedY);
+
+            index++;
+
+
+            if(checkClick(
+            pressedX, 
+            pressedY, 
+            X_BASE_BUTTON + BUTTON_WIDHT * 2, 
+            X_BASE_BUTTON + BUTTON_WIDHT * 3, 
+            Y_BASE_BUTTON + BUTTON_WIDHT * 2, 
+            Y_BASE_BUTTON + BUTTON_WIDHT * 3) 
             && currentField[index] == 0)
                 fillField(currentMove, currentField, index, pressedX, pressedY);
 
@@ -424,8 +458,8 @@ int main()
             if(checkWin == -1){
                 window.draw(*loveWins.sprite);
             }
-
-            if((pressedX > 0) && (pressedX < 1920) && (pressedY > 0) && (pressedY < 1000)) checkWin = 0;
+            
+            if(checkClick(pressedX, pressedY, 0, 1920, 0, 1000)) checkWin = 0;
         }
 
         // draw sprites
