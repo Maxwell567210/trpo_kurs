@@ -254,77 +254,115 @@ void drawOutSprites(
             window.draw(getSpriteLove(index, pos0Love, pos1Love, pos2Love, pos3Love, pos4Love, pos5Love, pos6Love, pos7Love, pos8Love));
         }
     }
+}
 
-    // if(currentField[index] == 1){
-    //         window.draw(*pos0Cat.sprite);
-    //     }
-    //     if(currentField[index] == -1){
-    //         window.draw(*pos0Love.sprite);
-    //     }
-    //     index++;
 
-    //     if(currentField[index] == 1){
-    //         window.draw(*pos1Cat.sprite);
-    //     }
-    //     if(currentField[index] == -1){
-    //         window.draw(*pos1Love.sprite);
-    //     }
-    //     index++;
+void clearMemory(
+    DrawSprite background,
+    DrawSprite playButton,
+    DrawSprite resetButton,
+    DrawSprite BigCatCurrent,
+    DrawSprite BigLoveCurrent,
+    DrawSprite catsWins,
+    DrawSprite loveWins,
 
-    //     if(currentField[index] == 1){
-    //         window.draw(*pos2Cat.sprite);
-    //     }
-    //     if(currentField[index] == -1){
-    //         window.draw(*pos2Love.sprite);
-    //     }
-    //     index++;
+    DrawSprite pos0Cat,
+    DrawSprite pos1Cat,
+    DrawSprite pos2Cat,
+    DrawSprite pos3Cat,
+    DrawSprite pos4Cat,
+    DrawSprite pos5Cat,
+    DrawSprite pos6Cat,
+    DrawSprite pos7Cat,
+    DrawSprite pos8Cat,
 
-    //     if(currentField[index] == 1){
-    //         window.draw(*pos3Cat.sprite);
-    //     }
-    //     if(currentField[index] == -1){
-    //         window.draw(*pos3Love.sprite);
-    //     }
-    //     index++;
+    DrawSprite pos0Love,
+    DrawSprite pos1Love,
+    DrawSprite pos2Love,
+    DrawSprite pos3Love,
+    DrawSprite pos4Love,
+    DrawSprite pos5Love,
+    DrawSprite pos6Love,
+    DrawSprite pos7Love,
+    DrawSprite pos8Love,
+    int* currentField
+){
+    delete background.sprite;
+    delete background.texture;
+    
+    delete playButton.sprite;
+    delete playButton.texture;
 
-    //     if(currentField[index] == 1){
-    //         window.draw(*pos4Cat.sprite);
-    //     }
-    //     if(currentField[index] == -1){
-    //         window.draw(*pos4Love.sprite);
-    //     }
-    //     index++;
+    delete resetButton.sprite;
+    delete resetButton.texture;
 
-    //     if(currentField[index] == 1){
-    //         window.draw(*pos5Cat.sprite);
-    //     }
-    //     if(currentField[index] == -1){
-    //         window.draw(*pos5Love.sprite);
-    //     }
-    //     index++;
+    delete BigCatCurrent.sprite;
+    delete BigCatCurrent.texture;
 
-    //     if(currentField[index] == 1){
-    //         window.draw(*pos6Cat.sprite);
-    //     }
-    //     if(currentField[index] == -1){
-    //         window.draw(*pos6Love.sprite);
-    //     }
-    //     index++;
+    delete BigLoveCurrent.sprite;
+    delete BigLoveCurrent.texture;
 
-    //     if(currentField[index] == 1){
-    //         window.draw(*pos7Cat.sprite);
-    //     }
-    //     if(currentField[index] == -1){
-    //         window.draw(*pos7Love.sprite);
-    //     }
-    //     index++;
-        
-    //     if(currentField[index] == 1){
-    //         window.draw(*pos8Cat.sprite);
-    //     }
-    //     if(currentField[index] == -1){
-    //         window.draw(*pos8Love.sprite);
-    //     }
+    delete catsWins.sprite;
+    delete catsWins.texture;
+
+    delete loveWins.sprite;
+    delete loveWins.texture;
+
+    delete pos0Cat.sprite;
+    delete pos0Cat.texture;
+
+    delete pos1Cat.sprite;
+    delete pos1Cat.texture;
+
+    delete pos2Cat.sprite;
+    delete pos2Cat.texture;
+
+    delete pos3Cat.sprite;
+    delete pos3Cat.texture;
+
+    delete pos4Cat.sprite;
+    delete pos4Cat.texture;
+
+    delete pos5Cat.sprite;
+    delete pos5Cat.texture;
+
+    delete pos6Cat.sprite;
+    delete pos6Cat.texture;
+
+    delete pos7Cat.sprite;
+    delete pos7Cat.texture;
+
+    delete pos8Cat.sprite;
+    delete pos8Cat.texture;
+
+    delete pos0Love.sprite;
+    delete pos0Love.texture;
+
+    delete pos1Love.sprite;
+    delete pos1Love.texture;
+
+    delete pos2Love.sprite;
+    delete pos2Love.texture;
+
+    delete pos3Love.sprite;
+    delete pos3Love.texture;
+
+    delete pos4Love.sprite;
+    delete pos4Love.texture;
+
+    delete pos5Love.sprite;
+    delete pos5Love.texture;
+
+    delete pos6Love.sprite;
+    delete pos6Love.texture;
+
+    delete pos7Love.sprite;
+    delete pos7Love.texture;
+
+    delete pos8Love.sprite;
+    delete pos8Love.texture;
+
+    delete[] currentField;
 }
 
 
@@ -675,77 +713,6 @@ int main()
             pos8Cat, pos8Love
         );
 
-        // if(currentField[index] == 1){
-        //     window.draw(*pos0Cat.sprite);
-        // }
-        // if(currentField[index] == -1){
-        //     window.draw(*pos0Love.sprite);
-        // }
-        // index++;
-
-        // if(currentField[index] == 1){
-        //     window.draw(*pos1Cat.sprite);
-        // }
-        // if(currentField[index] == -1){
-        //     window.draw(*pos1Love.sprite);
-        // }
-        // index++;
-
-        // if(currentField[index] == 1){
-        //     window.draw(*pos2Cat.sprite);
-        // }
-        // if(currentField[index] == -1){
-        //     window.draw(*pos2Love.sprite);
-        // }
-        // index++;
-
-        // if(currentField[index] == 1){
-        //     window.draw(*pos3Cat.sprite);
-        // }
-        // if(currentField[index] == -1){
-        //     window.draw(*pos3Love.sprite);
-        // }
-        // index++;
-
-        // if(currentField[index] == 1){
-        //     window.draw(*pos4Cat.sprite);
-        // }
-        // if(currentField[index] == -1){
-        //     window.draw(*pos4Love.sprite);
-        // }
-        // index++;
-
-        // if(currentField[index] == 1){
-        //     window.draw(*pos5Cat.sprite);
-        // }
-        // if(currentField[index] == -1){
-        //     window.draw(*pos5Love.sprite);
-        // }
-        // index++;
-
-        // if(currentField[index] == 1){
-        //     window.draw(*pos6Cat.sprite);
-        // }
-        // if(currentField[index] == -1){
-        //     window.draw(*pos6Love.sprite);
-        // }
-        // index++;
-
-        // if(currentField[index] == 1){
-        //     window.draw(*pos7Cat.sprite);
-        // }
-        // if(currentField[index] == -1){
-        //     window.draw(*pos7Love.sprite);
-        // }
-        // index++;
-        
-        // if(currentField[index] == 1){
-        //     window.draw(*pos8Cat.sprite);
-        // }
-        // if(currentField[index] == -1){
-        //     window.draw(*pos8Love.sprite);
-        // }
-
 
         // check winner
         for(int i = 0; i < 3; i++){
@@ -784,54 +751,30 @@ int main()
         
         window.display();
     }
-    // DrawSprite background = DrawSprite( RES_PATH + "Background.jpg", Rectangle(0, 0, WIDTH, HEIGHT));
-    // DrawSprite playButton = DrawSprite( RES_PATH + "PLAY.png", Rectangle(1333, 267, 1726, 357));
-    // DrawSprite resetButton = DrawSprite( RES_PATH + "RESET.png", Rectangle(1333, 267, 1726, 357));
-    // DrawSprite BigCatCurrent = DrawSprite( RES_PATH + "BigCat.png", Rectangle(1374, 596, 1694, 900));
-    // DrawSprite BigLoveCurrent = DrawSprite( RES_PATH + "BigLove.png", Rectangle(1374, 596, 1694, 900));
-    // DrawSprite catsWins = DrawSprite( RES_PATH + "cats_win.png", Rectangle(486, 260, 1486, 760));
-    // DrawSprite loveWins = DrawSprite( RES_PATH + "love_win.png", Rectangle(486, 260, 1486, 760));
-
-    // delete[] background.sprite;
-    // delete[] background.texture;
     
-    // delete[] playButton.sprite;
-    // delete[] playButton.texture;
+    clearMemory(
+        background, playButton, resetButton, BigCatCurrent, BigLoveCurrent, catsWins, loveWins,
+        pos0Cat,
+        pos1Cat,
+        pos2Cat,
+        pos3Cat,
+        pos4Cat,
+        pos5Cat,
+        pos6Cat,
+        pos7Cat,
+        pos8Cat,
 
-    // delete[] resetButton.sprite;
-    // delete[] resetButton.texture;
+        pos0Love,
+        pos1Love,
+        pos2Love,
+        pos3Love,
+        pos4Love,
+        pos5Love,
+        pos6Love,
+        pos7Love,
+        pos8Love,
 
-    // delete[] BigCatCurrent.sprite;
-    // delete[] BigCatCurrent.texture;
-
-    // delete[] BigLoveCurrent.sprite;
-    // delete[] BigLoveCurrent.texture;
-
-    // delete[] catsWins.sprite;
-    // delete[] catsWins.texture;
-
-    // delete[] loveWins.sprite;
-    // delete[] loveWins.texture;
-
-    // delete[] pos0Cat.sprite;
-    // delete[] pos0Cat.texture;
-
-    // delete[] pos1Cat.sprite;
-    // delete[] pos1Cat.texture;
-
-    // delete[] pos2Cat.sprite;
-    // delete[] pos2Cat.texture;
-
-    // delete[] pos3Cat.sprite;
-    // delete[] pos3Cat.texture;
-
-    // delete[] pos4Cat.sprite;
-    // delete[] pos4Cat.texture;
-
-    // delete[] pos5Cat.sprite;
-    // delete[] pos5Cat.texture;
-
+        currentField
+    );
     
-
-    delete[] currentField;
 }
