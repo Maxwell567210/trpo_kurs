@@ -2,7 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <drawSprite.h>
-#include <drawSprite.cpp>
 
 using namespace sf;
 
