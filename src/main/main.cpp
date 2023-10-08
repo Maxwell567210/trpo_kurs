@@ -14,7 +14,7 @@ int main()
     const String NAME_GAME = "TicTacToe";
     const int WIDTH = 1920;
     const int HEIGHT = 1000;
-    const std::string RES_PATH = "../../Resource/images/";
+    const std::string RES_PATH = "Resource/images/";
 
     const int BUTTON_WIDHT = 322;
     const int X_BASE_BUTTON = 138;

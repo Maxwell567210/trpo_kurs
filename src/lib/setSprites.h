@@ -1,11 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include <string>
-#include <unistd.h>
 #include <drawSprite.h>
-#include <drawSprite.cpp>
 
 using namespace sf;
 
@@ -66,4 +62,4 @@ void drawOutSprites(
 
     DrawSprite pos8Cat,
     DrawSprite pos8Love
-    );
+);

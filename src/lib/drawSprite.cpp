@@ -1,33 +1,51 @@
 #include <drawSprite.h>
 
-struct Rectangle
+// struct Rectangle
+// {
+//     int x;
+//     int y;
+//     int endX;
+//     int endY;
+//     Rectangle(
+//         int x,
+//         int y,
+//         int endX,
+//         int endY
+//     ) : x(x), y(y), endX(endX), endY(endY) {}
+// };
+
+
+Rectangle::Rectangle(
+    int x,
+    int y,
+    int endX,
+    int endY
+) : x(x), y(y), endX(endX), endY(endY) {}
+
+DrawSprite::DrawSprite(std::string path, Rectangle rect)
 {
-    int x;
-    int y;
-    int endX;
-    int endY;
-    Rectangle(
-        int x,
-        int y,
-        int endX,
-        int endY
-    ) : x(x), y(y), endX(endX), endY(endY) {}
-};
+    texture = new sf::Texture;
+    texture->loadFromFile(path);
 
+    sprite = new sf::RectangleShape;
+    sprite->setTexture(texture);
+    sprite->setPosition(sf::Vector2f(rect.x, rect.y));
+    sprite->setSize(sf::Vector2f(rect.endX - rect.x, rect.endY - rect.y));
+}
 
-struct DrawSprite {
-    sf::Texture* texture;
-    sf::RectangleShape* sprite;
+// struct DrawSprite {
+//     sf::Texture* texture;
+//     sf::RectangleShape* sprite;
 
-    DrawSprite(std::string path, Rectangle rect)
-    {
-        texture = new sf::Texture;
-        texture->loadFromFile(path);
+//     DrawSprite(std::string path, Rectangle rect)
+//     {
+//         texture = new sf::Texture;
+//         texture->loadFromFile(path);
         
-        sprite = new sf::RectangleShape;
-        sprite->setTexture(texture);
-        sprite->setPosition(sf::Vector2f(rect.x, rect.y));
-        sprite->setSize(sf::Vector2f(rect.endX- rect.x, rect.endY- rect.y));
-    }
-};
+//         sprite = new sf::RectangleShape;
+//         sprite->setTexture(texture);
+//         sprite->setPosition(sf::Vector2f(rect.x, rect.y));
+//         sprite->setSize(sf::Vector2f(rect.endX- rect.x, rect.endY- rect.y));
+//     }
+// };
 
