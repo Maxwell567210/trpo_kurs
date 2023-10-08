@@ -32,8 +32,8 @@ $(OBJ_DIR)/%.o: %.cpp
 
 
 
-# run: $(APP_PATH)
-# 	./bin/main
+run: $(APP_PATH)
+	./bin/main
 
-# clean:
-# 	$(RM) $(APP_PATH) $(OBJ_DIR)/*/*/*.[aod]
+clean:
+	$(RM) $(APP_PATH) $(OBJ_DIR)/*/*/*.[aod]
